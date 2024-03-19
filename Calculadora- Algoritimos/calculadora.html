@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <div class="container-pai">
+        <div class="header">
+
+            <h1> SENSFIT</h1>
+            <h2> Menssagem genérica blablabla</h2>
+            <h3>"Conquistar um novo cliente custa de 5 a 7 vezes mais que manter um atual" - Peter Drucker</h2>
+        </div>
+        <div class="calculadora">
+            <div class="informacao_cliente">
+
+                Quantos alunos novos em média entram mês? <br><input id="input_alunos_inscritos"><br>
+
+                Qual a mensalidade da sua academia? <br> <input id="input_mensalidade"><br>
+
+                A sua academia é franqueada? <br> <input id="input_franqueada"><br>
+
+                Qual o valor do seu investimento mensal para aquisição de novos clientes por mês? <br> <input
+                    id="input_investimento"><br> <br>
+
+                <button onclick="calcularVantagens()">Calcule</button><br>
+                <p id="mostrarResultado"> </p>
+            </div>
+        </div>
+
+
+    </div>
+</body>
+
+</html>
+<script>
+
+    function calcularVantagens() {
+
+        var alunos_inscritos_mes = Number(input_alunos_inscritos.value);
+
+        var mensalidade = Number(input_mensalidade.value);
+
+        var investimento = Number(input_investimento.value);
+
+        var franqueada = input_franqueada.value;
+
+        var calculoCAC = investimento / alunos_inscritos_mes;
+
+        var lucro = 0;
+
+        if (franqueada == "Sim") {
+            var lucro = 0.3
+        } else {
+            var lucro = 0.35
+        }
+
+        var lucro_mensal = mensalidade * lucro;
+
+        mostrarResultado.innerHTML = `O seu CAC é de R$${calculoCAC.toFixed(2)}`;
+
+
+        if (calculoCAC > lucro_mensal) {
+            var meses = 0;
+            var lucro_acumulado = 0;
+            while (lucro_acumulado <= calculoCAC) {
+                lucro_acumulado += lucro_mensal;
+                meses++;
+            }
+            mostrarResultado.innerHTML += ` Será necessário ${meses} meses para que tenha o retorno do investimento. <br>`
+        }
+
+        var taxa_desistente_mes = 0.4;
+        var alunos_desistentes = alunos_inscritos_mes * taxa_desistente_mes;
+        var taxa_desistente_mes_porcentagem = taxa_desistente_mes * 100;
+        var evasao_academia_mes = alunos_inscritos_mes * taxa_desistente_mes;
+        var calculo_prejuizo = evasao_academia_mes * mensalidade;
+
+        mostrarResultado.innerHTML += ` A taxa de desistência por mês no Brasil é de ${taxa_desistente_mes_porcentagem}% o que resulta em aproximadamente ${evasao_academia_mes} alunos na sua academia e uma perda de R$${calculo_prejuizo}.`
+
+
+        var taxa_falta_tempo = 0.6
+        var alunos_falta_tempo = taxa_desistente_mes * taxa_falta_tempo;
+        var conversao = 0.7;
+        var nova_taxa = 0.6*0.7
+        var taxa_alunos_convertidos = alunos_falta_tempo * conversao;
+        var nova_taxa_desistente = (taxa_alunos_convertidos) / (alunos_inscritos_mes) * 100;
+        var nova_taxa_porcentagem = nova_taxa_desistente * 100
+        var novo_prejuizo = nova_taxa_desistente * alunos_inscritos_mes * mensalidade
+
+
+
+        mostrarResultado.innerHTML += ` Com a tecnologia da SensFit a sua taxa de evasão vai melhorar para ${nova_taxa_porcentagem.toFixed(2)}% diminuindo o seu prejuízo para R$${novo_prejuizo.toFixed(2)}`
+
+    }
+
+
+</script>
