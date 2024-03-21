@@ -89,7 +89,7 @@
         var taxa_falta_tempo = 0.6
         var alunos_falta_tempo = taxa_desistente_mes * taxa_falta_tempo;
         var conversao = 0.7;
-        var nova_taxa = 0.6*0.7
+        var nova_taxa = alunos_falta_tempo * 0.7
         var taxa_alunos_convertidos = alunos_falta_tempo * conversao;
         var nova_taxa_desistente = (taxa_alunos_convertidos) / (alunos_inscritos_mes) * 100;
         var nova_taxa_porcentagem = nova_taxa_desistente * 100
